@@ -50,7 +50,7 @@ public class ApplicationController {
             return ResponseEntity.notFound().build();
         }
         application.setStatus(status);
-        var savedModel = applicationRepository.save(application);
+        Application savedModel = applicationRepository.save(application);
 
         return ResponseEntity.ok(savedModel);
     }
