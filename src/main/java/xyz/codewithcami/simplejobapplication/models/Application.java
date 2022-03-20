@@ -4,12 +4,15 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
+import java.util.HashMap;
+import java.util.Map;
 
 @Entity
 @Getter
@@ -37,10 +40,14 @@ public class Application {
 
     private String address;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @NotNull(message = "Please enter your date of birth")
     private LocalDate dateOfBirth;
 
     private String cv;
+
+    @Column(columnDefinition = "text")
+    private String coverLetter;
 
     @Column(columnDefinition = "varchar(20) default('Pending')")
     private String status = Status.PENDING;
@@ -49,6 +56,16 @@ public class Application {
     @JsonProperty("full_name")
     public String getName() {
         return firstName + " " + lastName;
+    }
+
+    @Transient
+    @JsonProperty("status_color")
+    public String getStatusColor() {
+        Map<String, String> statusColors = new HashMap<>();
+        statusColors.put(Status.PENDING, "primary");
+        statusColors.put(Status.PASSED, "success");
+        statusColors.put(Status.DROPPED, "danger");
+        return statusColors.get(status);
     }
 
 }
