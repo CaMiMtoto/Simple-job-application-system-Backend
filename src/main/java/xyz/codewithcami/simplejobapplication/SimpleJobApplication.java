@@ -24,7 +24,7 @@ public class SimpleJobApplication {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
-                        .allowedOrigins("http://localhost:3000", "https://elegant-elion-18eadc.netlify.app")
+                        .allowedOrigins("https://elegant-elion-18eadc.netlify.app", "http://localhost:3000")
                         .allowedMethods("PUT", "DELETE", "GET", "POST")
                         .allowCredentials(true)
                         .maxAge(3600);

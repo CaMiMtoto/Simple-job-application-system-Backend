@@ -64,6 +64,10 @@ public class CustomAuthFilter extends UsernamePasswordAuthenticationFilter {
         map.put("accessToken", accessToken);
         map.put("refreshToken", refreshToken);
         response.setContentType("application/json");
+        response.setHeader("Access-Control-Allow-Origin", "*");
+        response.setHeader("Access-Control-Allow-Credentials", "true");
+        response.setHeader("Access-Control-Allow-Methods", "POST, GET, PUT, OPTIONS, DELETE, PATCH");
+        response.setHeader("Access-Control-Max-Age", "3600");
 
         new ObjectMapper().writeValue(response.getWriter(), map);
     }
