@@ -34,7 +34,7 @@ public class SimpleJobApplication {
 
     @Bean
     CommandLineRunner run(UserService userService) {
-        return args -> userService.saveUser(new ApplicationUser(null, "admin", "admin@job.com", "password"));
+        // return args -> userService.saveUser(new ApplicationUser(null, "admin", "admin@job.com", "password"));
     }
 
 
