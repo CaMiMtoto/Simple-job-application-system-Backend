@@ -11,6 +11,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import xyz.codewithcami.simplejobapplication.models.ApplicationUser;
 import xyz.codewithcami.simplejobapplication.services.UserService;
 
+import javax.validation.constraints.NotNull;
+
 @SpringBootApplication
 public class SimpleJobApplication {
 
@@ -33,11 +35,17 @@ public class SimpleJobApplication {
     }
 
 
-  /*  @Bean
+    @Bean
     CommandLineRunner run(UserService userService) {
-        return args -> userService.saveUser(new ApplicationUser(null, "admin",
-                "admin@job.com", "password"));
-    }*/
+        return args -> {
+            // create a user if there is none
+            if (userService.getUser("admin@job.com") == null) {
+                userService.saveUser(new ApplicationUser(null, "admin",
+                        "admin@job.com", "password"));
+            }
+
+        };
+    }
 
     @Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder() {
